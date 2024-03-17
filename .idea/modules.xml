@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidPageBar.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidPageBar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidPageBar.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidPageBar.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidPageBar.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidPageBar.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidPageBar.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidPageBar.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidPageBar.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidPageBar.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/maskedit/AndroidPageBar.pagebar.iml" filepath="$PROJECT_DIR$/.idea/modules/maskedit/AndroidPageBar.pagebar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pagebar/AndroidPageBar.pagebar.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/pagebar/AndroidPageBar.pagebar.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pagebar/AndroidPageBar.pagebar.main.iml" filepath="$PROJECT_DIR$/.idea/modules/pagebar/AndroidPageBar.pagebar.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pagebar/AndroidPageBar.pagebar.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/pagebar/AndroidPageBar.pagebar.unitTest.iml" />
+    </modules>
+  </component>
+</project>
