@@ -1,0 +1,69 @@
+apply plugin: 'com.android.library'
+
+def libName = 'ai-pagebar'
+
+android {
+    namespace 'com.ai.android.pagebar'
+
+    compileSdkVersion PRJ_COMPILE_SDK_VERSION
+    buildToolsVersion PRJ_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion PRJ_MIN_SDK_VERSION
+        targetSdkVersion PRJ_TARGET_SDK_VERSION
+
+        versionCode PRJ_VERSION_CODE
+        versionName PRJ_VERSION_NAME
+
+        archivesBaseName = "$libName-$versionName"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JAVA_SRC_COMPATIBILITY
+        targetCompatibility JAVA_TARGET_COMPATIBILITY
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+task cleanArtifacts(type: Delete) {
+    delete "$ARTIFACTS_DIRECTORY/${libName}.aar"
+}
+
+task copyArtifacts(dependsOn: cleanArtifacts) {
+    def sourceRoot = "$buildDir/outputs/aar"
+
+    doFirst{
+        println "SOURCE: $sourceRoot"
+        println "TARGET: $ARTIFACTS_DIRECTORY"
+        println ""
+
+        copy {
+            from(fileTree(sourceRoot).files)
+            into(ARTIFACTS_DIRECTORY)
+            include("*.aar")
+
+            eachFile {
+                println "FILE: $it.relativeSourcePath -> $it.relativePath"
+            }
+        }
+    }
+}
+
+build.finalizedBy(copyArtifacts)

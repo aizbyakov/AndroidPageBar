@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <com.ai.android.pagebar.PageBar
+        android:id="@+id/activity_main__page_bar_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.ai.android.pagebar.PageBar
+        android:id="@+id/activity_main__page_bar_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:key_total="5"
+        app:key_selected="1" />
+
+    <com.ai.android.pagebar.PageBar
+        android:id="@+id/activity_main__page_bar_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:key_selected="1" />
+
+    <com.ai.android.pagebar.PageBar
+        android:id="@+id/activity_main__page_bar_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:key_selected="2"
+        app:key_show_prev="false"/>
+
+    <com.ai.android.pagebar.PageBar
+        android:id="@+id/activity_main__page_bar_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:key_show_next="false"/>
+
+    <com.ai.android.pagebar.PageBar
+        android:id="@+id/activity_main__page_bar_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:key_looped="false"/>
+
+    <com.ai.android.pagebar.PageBar
+        android:id="@+id/activity_main__page_bar_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:key_item="@android:drawable/btn_radio"
+        app:key_item_selected="@android:drawable/btn_star"
+        app:key_prev="@android:drawable/arrow_down_float"
+        app:key_next="@android:drawable/arrow_up_float"
+        app:key_looped="false"/>
+
+</LinearLayout>

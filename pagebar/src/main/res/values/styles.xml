@@ -1,0 +1,6 @@
+<resources>
+
+    <style name="Widget.Theme.AndroidPageBar.MyView" parent="">
+        <item name="android:background">@color/color_default_gray</item>
+    </style>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <item name="color_default_gray" type="color">#FF333333</item>
+    <item name="color_default_light_blue" type="color">#FF01ADEE</item>
+</resources>

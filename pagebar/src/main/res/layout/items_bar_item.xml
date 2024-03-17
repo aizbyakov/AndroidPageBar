@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/items_count_bar_item__img"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="0dp"
+    android:layout_margin="2dp"
+    android:layout_gravity="center"
+    android:src="@drawable/indicator_dot_selected"
+    android:importantForAccessibility="no" />

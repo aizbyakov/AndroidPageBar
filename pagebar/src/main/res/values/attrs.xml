@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PageBar">
+        <attr name="key_total" format="integer" />
+        <attr name="key_selected" format="integer" />
+        <attr name="key_item" format="reference" />
+        <attr name="key_item_selected" format="reference" />
+        <attr name="key_show_prev" format="boolean" />
+        <attr name="key_prev" format="reference" />
+        <attr name="key_show_next" format="boolean" />
+        <attr name="key_next" format="reference" />
+        <attr name="key_looped" format="boolean" />
+    </declare-styleable>
+</resources>

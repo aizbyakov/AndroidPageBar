@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PageBar</string>
+    <string name="regular_edittext_hint">Regular EditText</string>
+    <string name="regular_edittext_hint_with_digits_filter">Regular EditText with digits filter</string>
+</resources>
