@@ -3,15 +3,15 @@ apply plugin: 'com.android.application'
 android {
     namespace 'com.ai.android.pagebar.app'
 
-    compileSdkVersion PRJ_COMPILE_SDK_VERSION
-    buildToolsVersion PRJ_BUILD_TOOLS_VERSION
-
     defaultConfig {
-        minSdkVersion PRJ_MIN_SDK_VERSION
-        targetSdkVersion PRJ_TARGET_SDK_VERSION
+        versionCode androidApplicationVersionCode
+        versionName androidApplicationVersionName
 
-        versionCode PRJ_VERSION_CODE
-        versionName PRJ_VERSION_NAME
+        minSdk androidApplicationMinSdkVersion
+        compileSdk androidApplicationCompileSdkVersion
+        targetSdk androidApplicationTargetSdkVersion
+
+        archivesBaseName = "$rootProject.name-$versionName"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -24,8 +24,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JAVA_SRC_COMPATIBILITY
-        targetCompatibility JAVA_TARGET_COMPATIBILITY
+        sourceCompatibility javaSourceCompatibility
+        targetCompatibility javaTargetCompatibility
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    lint {
+        abortOnError true
     }
 }
 
@@ -38,4 +46,47 @@ dependencies {
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+tasks.register("cleanArtifacts", Delete) {
+    delete fileTree(dir: "$artifactsDirectory", include: "**/$rootProject.name*.apk")
+    delete fileTree(dir: "$artifactsDirectory", include: "**/$rootProject.name*.aab")
+}
+
+clean.finalizedBy(cleanArtifacts)
+
+tasks.register("copyArtifacts") {
+    doFirst {
+        def buildDirectory = layout.buildDirectory.getAsFile().get()
+        println "APK"
+        println ""
+
+        copyArtifactsImpl("$buildDirectory/outputs/")
+
+        println ""
+        println ""
+
+        println "BUNDLE"
+        println ""
+
+        copyArtifactsImpl("$buildDirectory/intermediates/apk/")
+    }
+}
+
+build.finalizedBy(copyArtifacts)
+
+ext.copyArtifactsImpl = { sourceRoot ->
+    println "SOURCE: $sourceRoot"
+    println "TARGET: $artifactsDirectory"
+    println ""
+
+    copy {
+        from(fileTree(sourceRoot).files)
+        into(artifactsDirectory)
+        include('*.apk', '*.aab')
+
+        eachFile {
+            println "FILE: $it.relativeSourcePath -> $it.relativePath"
+        }
+    }
 }

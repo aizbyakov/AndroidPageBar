@@ -5,15 +5,13 @@ def libName = 'ai-pagebar'
 android {
     namespace 'com.ai.android.pagebar'
 
-    compileSdkVersion PRJ_COMPILE_SDK_VERSION
-    buildToolsVersion PRJ_BUILD_TOOLS_VERSION
-
     defaultConfig {
-        minSdkVersion PRJ_MIN_SDK_VERSION
-        targetSdkVersion PRJ_TARGET_SDK_VERSION
+        versionCode androidApplicationVersionCode
+        versionName androidApplicationVersionName
 
-        versionCode PRJ_VERSION_CODE
-        versionName PRJ_VERSION_NAME
+        minSdk androidApplicationMinSdkVersion
+        compileSdk androidApplicationCompileSdkVersion
+        targetSdk androidApplicationTargetSdkVersion
 
         archivesBaseName = "$libName-$versionName"
 
@@ -28,35 +26,47 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JAVA_SRC_COMPATIBILITY
-        targetCompatibility JAVA_TARGET_COMPATIBILITY
+        sourceCompatibility = javaSourceCompatibility
+        targetCompatibility = javaTargetCompatibility
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    lint {
+        abortOnError true
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
-task cleanArtifacts(type: Delete) {
-    delete "$ARTIFACTS_DIRECTORY/${libName}.aar"
+tasks.register("cleanArtifacts", Delete) {
+    delete fileTree(dir: "$artifactsDirectory" , include: "**/${libName}*.aar")
+    delete fileTree(dir: "$artifactsDirectory" , include: "**/${libName}*sources.jar")
 }
 
-task copyArtifacts(dependsOn: cleanArtifacts) {
-    def sourceRoot = "$buildDir/outputs/aar"
+clean.finalizedBy(cleanArtifacts)
 
-    doFirst{
+tasks.register("copyArtifacts") {
+    def buildDirectory = layout.buildDirectory.getAsFile().get()
+    def sourceRoot = "$buildDirectory/outputs/aar"
+
+    doFirst {
         println "SOURCE: $sourceRoot"
-        println "TARGET: $ARTIFACTS_DIRECTORY"
+        println "TARGET: $artifactsDirectory"
         println ""
 
         copy {
             from(fileTree(sourceRoot).files)
-            into(ARTIFACTS_DIRECTORY)
+            into(artifactsDirectory)
             include("*.aar")
 
             eachFile {
@@ -67,3 +77,20 @@ task copyArtifacts(dependsOn: cleanArtifacts) {
 }
 
 build.finalizedBy(copyArtifacts)
+
+tasks.register("generateSourcesJar") {
+    def sourcesRoot = "$projectDir/src/main/java"
+    def cmd = "jar cvf \"$artifactsDirectory/$archivesBaseName-sources.jar\" -C \"$sourcesRoot/\" com"
+
+    doFirst {
+        println "GENERATE SOURCES JAR"
+        println "SOURCES: $sourcesRoot"
+        println "CMD: $cmd"
+
+        exec {
+            commandLine 'cmd', '/c', cmd
+        }
+    }
+}
+
+copyArtifacts.finalizedBy(generateSourcesJar)

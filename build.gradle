@@ -2,18 +2,25 @@
 
 buildscript {
     ext {
-        JAVA_SRC_COMPATIBILITY = JavaVersion.VERSION_11
-        JAVA_TARGET_COMPATIBILITY = JavaVersion.VERSION_11
+        javaSourceCompatibility = JavaVersion.VERSION_17
+        javaTargetCompatibility = JavaVersion.VERSION_17
 
-        PRJ_MIN_SDK_VERSION = 23
-        PRJ_COMPILE_SDK_VERSION = 33
-        PRJ_TARGET_SDK_VERSION = 28
-        PRJ_BUILD_TOOLS_VERSION = "33.0.2"
+//        androidApplicationMinSdkVersion = 23 // Android 6.0 – 6.0.1 (Marshmallow) - Not supported
+        androidApplicationMinSdkVersion = 24 // Android 7.0 (Nougat) - Not supported
+        androidApplicationTargetSdkVersion = 28 // Android 9 (Pie) - Not supported
+//        androidApplicationCompileSdkVersion = 30 //Android 11 [Supports Java 11] - Old version not supported as on 2024-09-26
+//        androidApplicationCompileSdkVersion = 31 // Android 12 [Supports Java 11] - Old version but still maintained as on 2024-09-26
+//        androidApplicationCompileSdkVersion = 32 // Android 12.1 [Supports Java 11] - Old version but still maintained as on 2024-09-26
+//        androidApplicationCompileSdkVersion = 33 // Android 13 [Supports Java 11] - Old version but still maintained as on 2024-09-26
+//        androidApplicationCompileSdkVersion = 34 // Android 14 [Supports Java 11] - Old version but still maintained as on 2024-09-26
+        androidApplicationCompileSdkVersion = 35 // Android 15 [Supports Java 17] - Current version as on 2024-09-26
 
-        PRJ_VERSION_CODE = 1
-        PRJ_VERSION_NAME = '1.0.0.0'
+        artifactsDirectory = "$rootDir/artifacts/"
 
-        ARTIFACTS_DIRECTORY = "$rootDir/artifacts/"
+        androidApplicationVersionCode = 3
+        androidApplicationVersionName = '1.0.2.0'
+
+        agp_version = '8.6.1'
     }
     repositories {
         google()
@@ -21,7 +28,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.2'
+        classpath "com.android.tools.build:gradle:$agp_version"
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -33,12 +40,14 @@ allprojects {
         google()
         mavenCentral()
     }
+
+// Use this chunk to enable detailed massages about deprecated APIs
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile).tap {
+            configureEach {
+                options.compilerArgs << "-Xlint:deprecation"
+            }
+        }
+    }
 }
 
-task cleanArtifacts(type: Delete) {
-    delete fileTree(dir: "$ARTIFACTS_DIRECTORY" , include: '**/*.*')
-}
-
-task clean(type: Delete, dependsOn: cleanArtifacts) {
-    delete rootProject.buildDir
-}

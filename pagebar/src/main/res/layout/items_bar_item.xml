@@ -7,4 +7,5 @@
     android:layout_margin="2dp"
     android:layout_gravity="center"
     android:src="@drawable/indicator_dot_selected"
+    android:scaleType="fitCenter"
     android:importantForAccessibility="no" />

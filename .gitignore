@@ -43,6 +43,8 @@ captures/
 .idea/caches
 .idea/navEditor.xml
 .idea/assetWizardSettings.xml
+.idea/deploymentTargetSelector.xml
+.idea/migrations.xml
 
 # Keystore files
 *.jks
@@ -62,3 +64,6 @@ freeline_project_description.json
 
 # Surround Files
 .MySCMServerInfo
+
+#Project output directory
+artifacts/
