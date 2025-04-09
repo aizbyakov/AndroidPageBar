@@ -20,6 +20,7 @@ public class PageBar extends RelativeLayout {
     private ItemsAdapter itemsAdapter;
     private ImageView btnPrevView;
     private ImageView btnNextView;
+    private OnChangeListener onChangeListener;
 
     public PageBar(Context context) {
         super(context);
@@ -109,6 +110,14 @@ public class PageBar extends RelativeLayout {
         }
 
         itemsAdapter.setCurrentIdx(nextIdx);
+
+        fireOnChangeSafe();
+    }
+
+    private void fireOnChangeSafe() {
+        var l = onChangeListener;
+        if (l != null)
+            l.OnChange(this, itemsAdapter.getCurrentIdx());
     }
 
     private void selectTablePrev() {
@@ -122,6 +131,8 @@ public class PageBar extends RelativeLayout {
         }
 
         itemsAdapter.setCurrentIdx(prevIdx < 0 ? itemsAdapter.getItemCount() - prevIdx : prevIdx);
+
+        fireOnChangeSafe();
     }
 
     public int getTotalItems() {
@@ -162,5 +173,17 @@ public class PageBar extends RelativeLayout {
 
     public void setLooped(boolean value) {
         itemsAdapter.setLooped(value);
+    }
+
+    public OnChangeListener getOnChangeListener() {
+        return onChangeListener;
+    }
+
+    public void setOnChangeListener(OnChangeListener onChangeListener) {
+        this.onChangeListener = onChangeListener;
+    }
+
+    public interface OnChangeListener {
+        void OnChange(PageBar view, int idxSelected);
     }
 }

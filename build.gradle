@@ -17,8 +17,8 @@ buildscript {
 
         artifactsDirectory = "$rootDir/artifacts/"
 
-        androidApplicationVersionCode = 3
-        androidApplicationVersionName = '1.0.2.0'
+        androidApplicationVersionCode = 4
+        androidApplicationVersionName = '1.0.3.0'
 
         agp_version = '8.6.1'
     }
