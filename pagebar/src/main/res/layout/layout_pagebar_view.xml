@@ -23,6 +23,7 @@
         android:layout_alignParentStart="true"
         android:layout_centerInParent="true"
         android:src="@drawable/play_left"
+        android:background="@android:color/transparent"
         android:importantForAccessibility="no" />
 
     <ImageButton
@@ -32,6 +33,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
         android:src="@drawable/play_right"
+        android:background="@android:color/transparent"
         android:importantForAccessibility="no" />
 
 </merge>
