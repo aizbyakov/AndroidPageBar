@@ -9,13 +9,15 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
+class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
+    public static final int DEFAULT_SELECTED_ITEM_IDX__NOT_SELECTED = -1;
+
     private final LayoutInflater layoutInflater;
     private final Drawable itemMarker;
     private final Drawable itemMarkerSelected;
 
-    private int total = 0;
-    private int currentIdx = 0;
+    private int count = 0;
+    private int currentIdx = DEFAULT_SELECTED_ITEM_IDX__NOT_SELECTED;
 
     private boolean looped = false;
 
@@ -39,19 +41,22 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return total;
+        return count;
     }
 
     public void setItemsCount(int value) {
-        total = value;
+        count = Math.max(value, 0);
 
-        if (total < 0)
-            total = 0;
+        currentIdx = getFixedCurrentIdx(currentIdx, count);
 
-        if (currentIdx >= total)
-            currentIdx = 0;
+        notifyItemRangeChanged(0, currentIdx);
+    }
 
-        notifyItemRangeChanged(0, total - 1);
+    private static int getFixedCurrentIdx(int idx, int count) {
+        if (idx >= count)
+            idx = count - 1;
+
+        return idx < 0 ? DEFAULT_SELECTED_ITEM_IDX__NOT_SELECTED : idx;
     }
 
     public int getCurrentIdx() {
@@ -61,17 +66,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
     public void setCurrentIdx(int value) {
         var currentIdxPrev = currentIdx;
 
-        if (total == 0) {
-            value = 0;
-        } else {
-            if (value < 0)
-                value = 0;
-
-            if (value >= total)
-                value = total - 1;
-        }
-
-        currentIdx = value;
+        currentIdx = getFixedCurrentIdx(value, count);
 
         notifyItemRangeChanged(currentIdxPrev, 1);
         notifyItemRangeChanged(currentIdx, 1);

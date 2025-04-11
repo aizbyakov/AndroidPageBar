@@ -31,19 +31,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:key_selected="2"
-        app:key_show_prev="false"/>
+        app:key_show_prev="false" />
 
     <com.ai.android.pagebar.PageBar
         android:id="@+id/activity_main__page_bar_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:key_show_next="false"/>
+        app:key_show_next="false" />
 
     <com.ai.android.pagebar.PageBar
         android:id="@+id/activity_main__page_bar_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:key_looped="false"/>
+        app:key_looped="false" />
 
     <com.ai.android.pagebar.PageBar
         android:id="@+id/activity_main__page_bar_7"
@@ -53,13 +53,19 @@
         app:key_item_selected="@android:drawable/btn_star"
         app:key_prev="@android:drawable/arrow_down_float"
         app:key_next="@android:drawable/arrow_up_float"
-        app:key_looped="false"/>
+        app:key_looped="false" />
 
     <TextView
         android:id="@+id/activity_main__last_selected_idx"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/app_name"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/activity_main__btn__reset_selection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_reset_selection" />
 
 </LinearLayout>

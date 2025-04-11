@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PageBar extends RelativeLayout {
     private static final int DEFAULT_TOTAL_ITEMS = 3;
-    private static final int DEFAULT_SELECTED_ITEM_IDX = 0;
     private static final boolean DEFAULT_BTN_NEXT_VISIBLE = true;
     private static final boolean DEFAULT_BTN_PREV_VISIBLE = true;
     private static final boolean DEFAULT_LOOPED = true;
@@ -48,7 +47,7 @@ public class PageBar extends RelativeLayout {
 
     protected void init(@NonNull Context context, @Nullable AttributeSet attributeSet) {
         var totalItems = DEFAULT_TOTAL_ITEMS;
-        var selectedItemIdx = DEFAULT_SELECTED_ITEM_IDX;
+        var selectedItemIdx = ItemsAdapter.DEFAULT_SELECTED_ITEM_IDX__NOT_SELECTED;
         var item = R.drawable.indicator_dot;
         var itemSelected = R.drawable.indicator_dot_selected;
         var btnPrevVisible = DEFAULT_BTN_PREV_VISIBLE;
@@ -63,7 +62,7 @@ public class PageBar extends RelativeLayout {
             var attrs = theme.obtainStyledAttributes(attributeSet, R.styleable.PageBar, 0, 0);
             try {
                 totalItems = attrs.getInt(R.styleable.PageBar_key_total, DEFAULT_TOTAL_ITEMS);
-                selectedItemIdx = attrs.getInt(R.styleable.PageBar_key_selected, DEFAULT_SELECTED_ITEM_IDX);
+                selectedItemIdx = attrs.getInt(R.styleable.PageBar_key_selected, ItemsAdapter.DEFAULT_SELECTED_ITEM_IDX__NOT_SELECTED);
                 item = attrs.getResourceId(R.styleable.PageBar_key_item, R.drawable.indicator_dot);
                 itemSelected = attrs.getResourceId(R.styleable.PageBar_key_item_selected, R.drawable.indicator_dot_selected);
                 btnPrevVisible = attrs.getBoolean(R.styleable.PageBar_key_show_prev, DEFAULT_BTN_PREV_VISIBLE);
@@ -149,6 +148,14 @@ public class PageBar extends RelativeLayout {
 
     public void setSelectedItemIdx(int value) {
         itemsAdapter.setCurrentIdx(value);
+    }
+
+    public boolean hasSelection() {
+        return itemsAdapter.getCurrentIdx() == ItemsAdapter.DEFAULT_SELECTED_ITEM_IDX__NOT_SELECTED;
+    }
+
+    public void resetSelection() {
+        itemsAdapter.setCurrentIdx(ItemsAdapter.DEFAULT_SELECTED_ITEM_IDX__NOT_SELECTED);
     }
 
     public void setBtnPrevVisibility(boolean value) {
