@@ -151,7 +151,7 @@ public class PageBar extends RelativeLayout {
     }
 
     public boolean hasSelection() {
-        return itemsAdapter.getCurrentIdx() == ItemsAdapter.DEFAULT_SELECTED_ITEM_IDX__NOT_SELECTED;
+        return itemsAdapter.getCurrentIdx() != ItemsAdapter.DEFAULT_SELECTED_ITEM_IDX__NOT_SELECTED;
     }
 
     public void resetSelection() {
