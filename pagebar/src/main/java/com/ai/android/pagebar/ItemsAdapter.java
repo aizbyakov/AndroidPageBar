@@ -1,5 +1,6 @@
 package com.ai.android.pagebar;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,12 +45,13 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
         return count;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setItemsCount(int value) {
         count = Math.max(value, 0);
 
         currentIdx = getFixedCurrentIdx(currentIdx, count);
 
-        notifyItemRangeChanged(0, currentIdx);
+        notifyDataSetChanged();
     }
 
     private static int getFixedCurrentIdx(int idx, int count) {
@@ -68,11 +70,13 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
 
         currentIdx = getFixedCurrentIdx(value, count);
 
-        if (currentIdxPrev > 0 && currentIdxPrev < count)
-            notifyItemRangeChanged(currentIdxPrev, 1);
+        if (count > 0) {
+            if (currentIdxPrev >= 0 && currentIdxPrev < count)
+                notifyItemRangeChanged(currentIdxPrev, 1);
 
-        if (currentIdx > 0 && currentIdx < count)
-            notifyItemRangeChanged(currentIdx, 1);
+            if (currentIdx >= 0 && currentIdx < count)
+                notifyItemRangeChanged(currentIdx, 1);
+        }
     }
 
     public boolean isLooped() {
