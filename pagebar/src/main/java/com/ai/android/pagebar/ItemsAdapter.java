@@ -68,8 +68,11 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
 
         currentIdx = getFixedCurrentIdx(value, count);
 
-        notifyItemRangeChanged(currentIdxPrev, 1);
-        notifyItemRangeChanged(currentIdx, 1);
+        if (currentIdxPrev > 0 && currentIdxPrev < count)
+            notifyItemRangeChanged(currentIdxPrev, 1);
+
+        if (currentIdx > 0 && currentIdx < count)
+            notifyItemRangeChanged(currentIdx, 1);
     }
 
     public boolean isLooped() {
